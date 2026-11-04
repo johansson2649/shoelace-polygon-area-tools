@@ -23,3 +23,10 @@ Input vertices may be given either as `[x, y]` pairs or as `{ x, y }` objects, a
 A polygon with fewer than three vertices has zero area and its centroid is `{ x: 0, y: 0 }`. The centroid of a degenerate polygon whose signed area rounds to exactly zero is likewise `{ x: 0, y: 0 }`; computing a "midpoint of the vertex set" instead would be a different function with different semantics.
 
 `signedArea` returns a positive value for counter-clockwise winding and negative for clockwise. Use `Math.abs` on the result if you only care about magnitude.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
